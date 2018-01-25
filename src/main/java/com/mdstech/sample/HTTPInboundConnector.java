@@ -30,7 +30,7 @@ public class HTTPInboundConnector extends AbstractVerticle {
             HttpServerResponse response = routingContext.response();
             response
                     .putHeader("content-type", "text/html")
-                    .end("<h1>First Sample Vert.x Service</h1>");
+                    .end("<h1>Deployed Successfully into EC2 using Jenkins/Ansible</h1>");
         });
 
         router.route("/assets/*").handler(StaticHandler.create("assets"));
