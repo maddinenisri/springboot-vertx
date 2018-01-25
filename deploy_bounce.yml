@@ -6,16 +6,14 @@
 
   tasks:
 
-    - name: Copy Jar file
-      copy:
-        src: target/springboot-vertx-1.0-SNAPSHOT.jar
-        dest: /home/ec2-user/deploy
+#    - name: Copy Jar file
+#      copy:
+#        src: target/springboot-vertx-1.0-SNAPSHOT.jar
+#        dest: /home/ec2-user/deploy
 
     - name: Stop Server if running
       service:
-        name: springboot-vertx
-        state: stopped
-        pattern: springboot-vertx
+        shell: "kill $(ps aux | grep -i 'springboot-vertx-1.0-SNAPSHOT' | awk '{print $2}')"
 
     - name: Start Server
       command: "nohup java -jar /home/ec2-user/deploy/springboot-vertx-1.0-SNAPSHOT.jar &"
