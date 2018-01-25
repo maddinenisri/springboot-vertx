@@ -1,5 +1,7 @@
 Jenkins Server Steps:
 ---------------------
+docker exec -u 0 -i -t jenkins bash
+su - jenkins
 
 ssh-agent bash
 ssh-add ~/.ssh/keypair.pem
