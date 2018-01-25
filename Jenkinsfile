@@ -21,6 +21,7 @@ node {
             export AWS_SECRET_ACCESS_KEY=$PASSWORD
             export ANSIBLE_HOSTS=/etc/Ansible/ec2.py
             export EC2_INI_PATH=/etc/Ansible/ec2.ini
+            export ANSIBLE_HOST_KEY_CHECKING=False
             /etc/Ansible/ec2.py --list
             ansible -u ec2-user tag_Name_mymicroec2 -m ping
             ansible-playbook deploy_bounce.yml --limit tag_Name_mymicroec2
