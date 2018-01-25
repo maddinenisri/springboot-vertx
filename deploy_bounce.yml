@@ -13,6 +13,7 @@
 
     - name: Stop Server if running
       shell: "kill $(ps aux | grep -i 'springboot-vertx-1.0-SNAPSHOT' | grep -v grep | awk '{print $2}')"
+      ignore_errors: True
 
     - name: Start Server
       command: "nohup java -jar /home/ec2-user/deploy/springboot-vertx-1.0-SNAPSHOT.jar &"
