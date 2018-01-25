@@ -23,6 +23,7 @@ node {
             export EC2_INI_PATH=/etc/Ansible/ec2.ini
             /etc/Ansible/ec2.py --list
             ansible -u ec2-user tag_Name_mymicroec2 -m ping
+            ansible-playbook deploy_bounce.yml --limit tag_Name_mymicroec2
             """
         }
     }

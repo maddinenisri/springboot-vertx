@@ -1,0 +1,16 @@
+---
+- name: Deploy Springboot Vertx Application
+  hosts: all
+  remote_user: ec2-user
+  gather_facts: true
+
+  tasks:
+
+    - name: Copy Jar file
+      copy:
+        src: target/springboot-vertx-1.0-SNAPSHOT.jar
+        dest: /home/ec2-user/deploy
+
+    - name: Start Server
+      copy:
+        command: java -jar /home/ec2-user/deploy/springboot-vertx-1.0-SNAPSHOT.jar
