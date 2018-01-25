@@ -16,6 +16,4 @@
       ignore_errors: True
 
     - name: Start Server
-      command: "nohup java -jar /home/ec2-user/deploy/springboot-vertx-1.0-SNAPSHOT.jar &"
-      args:
-        chdir: "/tmp"
+      shell: "nohup java -jar /home/ec2-user/deploy/springboot-vertx-1.0-SNAPSHOT.jar &"
