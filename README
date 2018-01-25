@@ -1,0 +1,32 @@
+Jenkins Server Steps:
+---------------------
+
+ssh-agent bash
+ssh-add ~/.ssh/keypair.pem
+
+export AWS_ACCESS_KEY_ID=xxxx
+export AWS_SECRET_ACCESS_KEY=xxxx
+export ANSIBLE_HOSTS=/etc/Ansible/ec2.py
+export EC2_INI_PATH=/etc/Ansible/ec2.ini
+
+/etc/Ansible/ec2.py --list
+
+export ANSIBLE_HOST_KEY_CHECKING=False
+ansible -u ec2-user tag_Name_mymicroec2 -m ping
+
+
+AWS EC2 Steps:
+----------------
+sudo yum install tomcat8
+sudo yum install tomcat8-webapps tomcat8-admin-webapps
+sudo service tomcat8 start
+
+sudo fuser -v -n tcp 8080
+
+cd /var/lib/tomcat8/webapps/
+
+sudo yum install -y java-1.8.0-openjdk.x86_64
+sudo /usr/sbin/alternatives --set java /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bin/java
+sudo /usr/sbin/alternatives --set javac /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bin/javac
+sudo yum remove java-1.7
+java -jar springboot-vertx-1.0-SNAPSHOT.jar
