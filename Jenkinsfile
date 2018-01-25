@@ -15,7 +15,6 @@ node {
     }
     stage("Deploy to Dev") {
         withCredentials([usernamePassword(credentialsId: 'e383ee23-4270-40c5-ac9d-a4620e18e2cf', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            sh "echo $PASSWORD"
             sh """
             export AWS_ACCESS_KEY_ID=$USERNAME
             export AWS_SECRET_ACCESS_KEY=$PASSWORD
