@@ -12,5 +12,4 @@
         dest: /home/ec2-user/deploy
 
     - name: Start Server
-      copy:
-        command: java -jar /home/ec2-user/deploy/springboot-vertx-1.0-SNAPSHOT.jar
+      command: java -jar /home/ec2-user/deploy/springboot-vertx-1.0-SNAPSHOT.jar
