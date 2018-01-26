@@ -5,10 +5,24 @@
   sudo: yes
   gather_facts: true
 
+  vars:
+    package: java-1.8.0-openjdk.x86_64
+
   tasks:
 
     - name: Update all packages to latest
       yum: name=* state=latest
+
+    - name: check if "{{ package }}" is installed
+      yum:
+        list="{{ package }}"
+      register: is_installed
+
+    - name: install "{{ package }}" if not exist
+      yum:
+        name: "{{ package }}"
+        state: latest
+      when: (is_installed.results|length == 1) or (is_installed.results[1].yumstate != 'installed')
 
     - name: Stop Server if running
       shell: "kill $(ps aux | grep -i 'springboot-vertx-1.0-SNAPSHOT' | grep -v grep | awk '{print $2}')"
@@ -17,7 +31,7 @@
     - name: Copy Jar file
       copy:
         src: target/springboot-vertx-1.0-SNAPSHOT.jar
-        dest: /home/ec2-user/deploy
+        dest: /home/ec2-user
 
     - name: Start Server
-      shell: "nohup java -jar /home/ec2-user/deploy/springboot-vertx-1.0-SNAPSHOT.jar &"
+      shell: "nohup java -jar /home/ec2-user/springboot-vertx-1.0-SNAPSHOT.jar &"
