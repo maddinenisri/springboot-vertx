@@ -22,17 +22,17 @@
       yum:
         name: "{{ package }}"
         state: latest
-      when: (is_installed.results|length == 1) or (is_installed.results[1].yumstate != 'installed')
+      when: is_installed.results|selectattr("yumstate", "match", "installed")|list|length != 0
 
-#    - name: Update Java Alternatives
-#      shell: |
-#        /usr/sbin/alternatives --set java /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bin/java
-#        /usr/sbin/alternatives --set javac /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bin/javac
-#      args:
-#        executable: /bin/bash
-#      when: (is_installed.results|length == 1) or (is_installed.results[1].yumstate != 'installed')
-#      become: yes
-#      become_user: root
+    - name: Update Java Alternatives
+      shell: |
+        /usr/sbin/alternatives --set java /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bin/java
+        /usr/sbin/alternatives --set javac /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bin/javac
+      args:
+        executable: /bin/bash
+      when: is_installed.results|selectattr("yumstate", "match", "installed")|list|length != 0
+      become: yes
+      become_user: root
 
     - name: Stop Server if running
       shell: "kill $(ps aux | grep -i 'springboot-vertx-1.0-SNAPSHOT' | grep -v grep | awk '{print $2}')"
