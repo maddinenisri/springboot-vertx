@@ -2,6 +2,7 @@
 - name: Deploy Springboot Vertx Application
   hosts: all
   remote_user: ec2-user
+  sudo: yes
   gather_facts: true
 
   vars:
@@ -11,30 +12,22 @@
 
     - name: Update all packages to latest
       yum: name=* state=latest
-      become: yes
-      become_user: root
 
     - name: check if "{{ package }}" is installed
       yum:
         list="{{ package }}"
       register: is_installed
-      become: yes
-      become_user: root
 
     - assert:
         that:
           - "'installed' in is_installed|json_query('results[*].yumstate')"
       msg: '{{ package }} is installed'
-      become: yes
-      become_user: root
 
     - name: install "{{ package }}" if not exist
       yum:
         name: "{{ package }}"
         state: latest
       when: "not 'installed' in is_installed|json_query('results[*].yumstate')"
-      become: yes
-      become_user: root
 
     - name: Update Java Alternatives
       shell: |
