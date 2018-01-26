@@ -18,11 +18,11 @@ node {
             sh """
             export AWS_ACCESS_KEY_ID=$USERNAME
             export AWS_SECRET_ACCESS_KEY=$PASSWORD
-            export ANSIBLE_HOSTS=/etc/Ansible/ec2.py
-            export EC2_INI_PATH=/etc/Ansible/ec2.ini
+            export ANSIBLE_HOSTS=inventory/ec2.py
+            export EC2_INI_PATH=inventory/ec2.ini
             export ANSIBLE_HOST_KEY_CHECKING=False
             /etc/Ansible/ec2.py --list
-            ansible-playbook -i /etc/Ansible/ec2.py deploy_bounce.yml --limit tag_Name_vertx_springboot_ms
+            ansible-playbook -i inventory/ec2.py deploy_bounce.yml --limit tag_Name_vertx_springboot_ms,&tag_Environment_dev
             """
         }
     }
