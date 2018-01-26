@@ -23,7 +23,7 @@ node {
             export ANSIBLE_HOST_KEY_CHECKING=False
             chmod +x inventory/ec2.py
             inventory/ec2.py --list
-            ansible-playbook -i inventory/ec2.py deploy_bounce.yml --limit tag_Name_vertx_springboot_ms:&tag_Environment_dev
+            ansible-playbook -i inventory/ec2.py deploy_bounce.yml --limit tag_Environment_dev
             '''
         }
     }
