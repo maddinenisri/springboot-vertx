@@ -11,6 +11,8 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.StaticHandler;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -30,7 +32,7 @@ public class HTTPInboundConnector extends AbstractVerticle {
             HttpServerResponse response = routingContext.response();
             response
                     .putHeader("content-type", "text/html")
-                    .end("<h1>Deployed Successfully into EC2 using Jenkins/Ansible</h1>");
+                    .end("<h1>Deployed Successfully into EC2 using Jenkins/Ansible, Current Time:"+LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE)+"</h1>");
         });
 
         router.route("/assets/*").handler(StaticHandler.create("assets"));
