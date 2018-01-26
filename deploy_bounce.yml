@@ -19,15 +19,15 @@
       register: is_installed
 
     - assert:
-      that:
-        - "'installed' in is_installed|json_query('results[*].yumstate')"
-      msg: '{{ package }} is not installed'
+        that:
+          - "'installed' in is_installed|json_query('results[*].yumstate')"
+      msg: '{{ package }} is installed'
 
     - name: install "{{ package }}" if not exist
       yum:
         name: "{{ package }}"
         state: latest
-      when: "'installed' in is_installed|json_query('results[*].yumstate')"
+      when: "not 'installed' in is_installed|json_query('results[*].yumstate')"
 
     - name: Update Java Alternatives
       shell: |
@@ -35,7 +35,7 @@
         /usr/sbin/alternatives --set javac /usr/lib/jvm/jre-1.8.0-openjdk.x86_64/bin/javac
       args:
         executable: /bin/bash
-      when: "'installed' in is_installed|json_query('results[*].yumstate')"
+      when: "not 'installed' in is_installed|json_query('results[*].yumstate')"
       become: yes
       become_user: root
 
