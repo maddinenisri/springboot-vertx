@@ -21,6 +21,7 @@ node {
             export ANSIBLE_HOSTS=inventory/ec2.py
             export EC2_INI_PATH=inventory/ec2.ini
             export ANSIBLE_HOST_KEY_CHECKING=False
+            chmod +x inventory/ec2.py
             inventory/ec2.py --list
             ansible-playbook -i inventory/ec2.py deploy_bounce.yml --limit tag_Name_vertx_springboot_ms:&tag_Environment_dev
             '''
