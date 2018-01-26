@@ -15,6 +15,7 @@ node {
     }
     stage("Deploy to Dev") {
         sh """
+        ssh-agent bash
         ssh-add ~/.ssh/keypair.pem
         ssh-add -l
         """
