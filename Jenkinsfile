@@ -15,15 +15,15 @@ node {
     }
     stage("Deploy to Dev") {
         withCredentials([usernamePassword(credentialsId: 'e383ee23-4270-40c5-ac9d-a4620e18e2cf', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            sh """
+            sh '''
             export AWS_ACCESS_KEY_ID=$USERNAME
             export AWS_SECRET_ACCESS_KEY=$PASSWORD
             export ANSIBLE_HOSTS=inventory/ec2.py
             export EC2_INI_PATH=inventory/ec2.ini
             export ANSIBLE_HOST_KEY_CHECKING=False
-            /etc/Ansible/ec2.py --list
-            ansible-playbook -i inventory/ec2.py deploy_bounce.yml --limit tag_Name_vertx_springboot_ms,&tag_Environment_dev
-            """
+            inventory/ec2.py --list
+            ansible-playbook -i inventory/ec2.py deploy_bounce.yml --limit tag_Name_vertx_springboot_ms:&tag_Environment_dev
+            '''
         }
     }
 }
