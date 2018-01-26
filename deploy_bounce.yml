@@ -2,7 +2,6 @@
 - name: Deploy Springboot Vertx Application
   hosts: all
   remote_user: ec2-user
-  sudo: yes
   gather_facts: true
 
   vars:
