@@ -2,9 +2,13 @@
 - name: Deploy Springboot Vertx Application
   hosts: all
   remote_user: ec2-user
+  sudo: yes
   gather_facts: true
 
   tasks:
+
+    - name: Update all packages to latest
+      yum: name=* state=latest
 
     - name: Stop Server if running
       shell: "kill $(ps aux | grep -i 'springboot-vertx-1.0-SNAPSHOT' | grep -v grep | awk '{print $2}')"
