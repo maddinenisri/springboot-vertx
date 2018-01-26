@@ -32,7 +32,8 @@ public class HTTPInboundConnector extends AbstractVerticle {
             HttpServerResponse response = routingContext.response();
             response
                     .putHeader("content-type", "text/html")
-                    .end("<h1>Deployed Successfully into EC2 using Jenkins/Ansible, Current Time:"+LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE)+"</h1>");
+                    .end("<h1>Deployed Successfully into EC2 using Jenkins/Ansible, Current Time:"+
+                            LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)+"</h1>");
         });
 
         router.route("/assets/*").handler(StaticHandler.create("assets"));
